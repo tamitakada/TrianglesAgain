@@ -23,8 +23,8 @@ public class Point{
 
   public double distanceTo(Point other) {
     return Math.sqrt(
-              (Math.pow(this.x, 2) - Math.pow(other.x, 2)) +
-              (Math.pow(this.y, 2) - Math.pow(other.y, 2))
+              (Math.pow(this.x - other.x, 2)) +
+              (Math.pow(this.y - other.y, 2))
             );
   }
 

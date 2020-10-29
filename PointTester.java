@@ -5,11 +5,12 @@ public class PointTester {
 
   public static void main(String[] args) {
     System.out.println(testPointCreation());
+    System.out.println(testDistance());
   }
 
   public static Point createPoint() {
     Random rng = new Random();
-    Point toReturn = new Point(rng.nextInt(), rng.nextInt());
+    Point toReturn = new Point(rng.nextDouble(), rng.nextDouble());
     return toReturn;
   }
 
@@ -49,7 +50,39 @@ public class PointTester {
     return true;
   }
 
-  public boolean testDistance() {
+  public static boolean testDistance() {
+    Point one = new Point(0, 0);
+    Point two = new Point(99, 0);
+    Point three = new Point(0, -25);
+    Point four = new Point(-10, 7);
+    Point five = four;
+
+    Point[] points = new Point[] {
+      two, three, four
+    };
+
+    double[] expected = new double[] {
+      99, 25, Math.sqrt(149)
+    };
+
+    for (int i = 0; i < 3; i++) {
+      if (one.distanceTo(points[i]) != expected[i]) return false;
+    }
+
+    if (four.distanceTo(five) != 0) return false;
+
+    for (int i = 0; i < 100; i++) {
+      Point newOne = createPoint();
+      Point newTwo = createPoint();
+
+      double result = Math.sqrt(
+        (Math.pow(newOne.getX() - newTwo.getX(), 2)) +
+        (Math.pow(newOne.getY() - newTwo.getY(), 2))
+      );
+
+      if (newOne.distanceTo(newTwo) != result) return false;
+    }
+
     return true;
   }
 
