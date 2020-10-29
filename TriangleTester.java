@@ -10,6 +10,7 @@ public class TriangleTester {
     System.out.println(testPerimeter());
     System.out.println(testArea());
     System.out.println(testClassify());
+    System.out.println(testSetVertex());
   }
 
   public static Point[] createPoints() {
@@ -147,6 +148,44 @@ public class TriangleTester {
       else if ((legOne == legTwo) || (legOne == legThree) || (legTwo == legThree)) result = "isosceles";
 
       if (newTriangle.classify() != result) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testSetVertex() {
+    Triangle one = new Triangle(0, 0, 0, 10, 15, 0);
+
+    Point newOne = new Point(-5.22, 1.3);
+    one.setVertex(0, newOne);
+    if (!(one.toString().equals("v1(-5.22, 1.3) v2(0.0, 10.0) v3(15.0, 0.0)"))) return false;
+
+    Point newTwo = new Point(9, 10);
+    one.setVertex(1, newTwo);
+    if (!(one.toString().equals("v1(-5.22, 1.3) v2(9.0, 10.0) v3(15.0, 0.0)"))) return false;
+
+    Point newThree = new Point(12.444, 90);
+    one.setVertex(2, newThree);
+    if (!(one.toString().equals("v1(-5.22, 1.3) v2(9.0, 10.0) v3(12.444, 90.0)"))) return false;
+
+    for (int i = 0; i < 100; i++) {
+      Point[] points = createPoints();
+      Triangle newTriangle = new Triangle(points[0], points[1], points[2]);
+
+      Random rng = new Random();
+      double newX = rng.nextDouble();
+      double newY = rng.nextDouble();
+
+      Point newPoint = new Point(newX, newY);
+
+      newTriangle.setVertex(1, newPoint);
+
+      String result = "";
+      result += "v1(" + points[0].getX() + ", " + points[0].getY() + ") ";
+      result += "v2(" + newX + ", " + newY + ") ";
+      result += "v3(" + points[2].getX() + ", " + points[2].getY() + ")";
+
+      if (!(newTriangle.toString().equals(result))) return false;
     }
 
     return true;

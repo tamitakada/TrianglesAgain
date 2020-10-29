@@ -60,4 +60,18 @@ public class Triangle {
     return toReturn;
   }
 
+  public void setVertex(int index, Point newP) {
+    switch (index) {
+      case 0:
+        v1 = newP;
+        break;
+      case 1:
+        v2 = newP;
+        break;
+      case 2:
+        v3 = newP;
+        break;
+    };
+  }
+
 }
