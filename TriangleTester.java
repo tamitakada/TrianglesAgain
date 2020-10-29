@@ -9,6 +9,7 @@ public class TriangleTester {
     System.out.println(testTriangleCreation());
     System.out.println(testPerimeter());
     System.out.println(testArea());
+    System.out.println(testClassify());
   }
 
   public static Point[] createPoints() {
@@ -110,6 +111,42 @@ public class TriangleTester {
       );
 
       if (newTriangle.getArea() != area) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testClassify() {
+    Triangle one = new Triangle(0, 0, 0, 1, 1, 0);
+    Triangle two = one;
+    Triangle three = new Triangle(-5, 10, -5, -10, 2, -10);
+    Triangle four = new Triangle(0, 0, 0, 6, 3, (3 + Math.sqrt(3)));
+
+    Triangle[] tests = new Triangle[] {
+      one, two, three, four
+    };
+
+    String[] expected = new String[] {
+      "isosceles", "isosceles", "scalene", "equilateral"
+    };
+
+    for (int i = 0; i < 3; i++) {
+      if (tests[i].classify() != expected[i]) return false;
+    }
+
+    for (int i = 0; i < 100; i++) {
+      Point[] points = createPoints();
+      Triangle newTriangle = new Triangle(points[0], points[1], points[2]);
+
+      double legOne = points[0].distanceTo(points[1]);
+      double legTwo = points[0].distanceTo(points[2]);
+      double legThree = points[1].distanceTo(points[2]);
+
+      String result = "scalene";
+      if ((legOne == legTwo) && (legOne == legThree)) result = "equilateral";
+      else if ((legOne == legTwo) || (legOne == legThree) || (legTwo == legThree)) result = "isosceles";
+
+      if (newTriangle.classify() != result) return false;
     }
 
     return true;

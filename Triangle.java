@@ -41,6 +41,16 @@ public class Triangle {
     return area;
   }
 
+  public String classify() {
+    double legOne = v1.distanceTo(v2);
+    double legTwo = v1.distanceTo(v3);
+    double legThree = v2.distanceTo(v3);
+
+    if ((legOne == legTwo) && (legOne == legThree)) return "equilateral";
+    else if ((legOne == legTwo) || (legOne == legThree) || (legTwo == legThree)) return "isosceles";
+    else return "scalene";
+  }
+
   public String toString() {
     String toReturn = "";
     toReturn += "v1(" + v1.getX() + ", " + v1.getY() + ") ";
