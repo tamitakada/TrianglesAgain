@@ -110,5 +110,4 @@ public class PointTester {
     return true;
   }
 
-
 }
