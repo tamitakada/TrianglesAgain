@@ -5,6 +5,7 @@ public class TriangleTester {
 
   public static void main(String[] args) {
     System.out.println(testTriangleCreation());
+    System.out.println(testPerimeter());
   }
 
   public static Point[] createPoints() {
@@ -38,6 +39,29 @@ public class TriangleTester {
       result += "v3(" + points[2].getX() + ", " + points[2].getY() + ")";
 
       if (!(newTriangle.toString().equals(result))) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testPerimeter() {
+    Triangle one = new Triangle(0, 0, 0, 1, 1, 0);
+    Triangle two = one;
+
+    if (one.getPerimeter() != (Math.sqrt(2) + 2)) return false;
+    if (two.getPerimeter() != (Math.sqrt(2) + 2)) return false;
+
+    for (int i = 0; i < 100; i++) {
+      Point[] points = createPoints();
+      Triangle newTriangle = new Triangle(points[0], points[1], points[2]);
+
+      double legOne = points[0].distanceTo(points[1]);
+      double legTwo = points[0].distanceTo(points[2]);
+      double legThree = points[1].distanceTo(points[2]);
+
+      double perimeter = legOne + legTwo + legThree;
+
+      if (newTriangle.getPerimeter() != perimeter) return false;
     }
 
     return true;

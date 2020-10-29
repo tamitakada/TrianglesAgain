@@ -19,11 +19,26 @@ public class Triangle {
   }
 
   public double getPerimeter() {
-    return 0.0;
+    double legOne = v1.distanceTo(v2);
+    double legTwo = v1.distanceTo(v3);
+    double legThree = v2.distanceTo(v3);
+
+    return (legOne + legTwo + legThree);
   }
 
   public double getArea() {
-    return 0.9;
+    double legOne = v1.distanceTo(v2);
+    double legTwo = v1.distanceTo(v3);
+    double legThree = v2.distanceTo(v3);
+
+    double semiperimeter = getPerimeter() / 2;
+    double area = Math.sqrt(
+      semiperimeter *
+      (semiperimeter - legOne) *
+      (semiperimeter - legTwo) *
+      (semiperimeter - legThree)
+    );
+    return area;
   }
 
   public String toString() {
