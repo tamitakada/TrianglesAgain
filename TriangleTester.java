@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.text.DecimalFormat;
+import java.math.RoundingMode;
 
 
 public class TriangleTester {
@@ -6,6 +8,7 @@ public class TriangleTester {
   public static void main(String[] args) {
     System.out.println(testTriangleCreation());
     System.out.println(testPerimeter());
+    System.out.println(testArea());
   }
 
   public static Point[] createPoints() {
@@ -62,6 +65,51 @@ public class TriangleTester {
       double perimeter = legOne + legTwo + legThree;
 
       if (newTriangle.getPerimeter() != perimeter) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testArea() {
+    Triangle one = new Triangle(0, 0, 0, 1, 1, 0);
+    Triangle two = one;
+    Triangle three = new Triangle(-5, 10, -5, -10, 2, -10);
+
+    Triangle[] tests = new Triangle[] {
+      one, two, three
+    };
+
+    double[] expected = new double[] {
+      0.5, 0.5, 70
+    };
+
+    for (int i = 0; i < 3; i++) {
+      double area = tests[i].getArea();
+
+      DecimalFormat decForm = new DecimalFormat("#.#");
+      decForm.setRoundingMode(RoundingMode.CEILING);
+      double formattedArea = Double.parseDouble(decForm.format(area));
+
+      if (formattedArea != expected[i]) return false;
+    }
+
+    for (int i = 0; i < 100; i++) {
+      Point[] points = createPoints();
+      Triangle newTriangle = new Triangle(points[0], points[1], points[2]);
+
+      double legOne = points[0].distanceTo(points[1]);
+      double legTwo = points[0].distanceTo(points[2]);
+      double legThree = points[1].distanceTo(points[2]);
+
+      double semiperimeter = newTriangle.getPerimeter() / 2;
+      double area = Math.sqrt(
+        semiperimeter *
+        (semiperimeter - legOne) *
+        (semiperimeter - legTwo) *
+        (semiperimeter - legThree)
+      );
+
+      if (newTriangle.getArea() != area) return false;
     }
 
     return true;
