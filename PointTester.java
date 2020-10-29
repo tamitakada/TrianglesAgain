@@ -6,6 +6,7 @@ public class PointTester {
   public static void main(String[] args) {
     System.out.println(testPointCreation());
     System.out.println(testDistance());
+    System.out.println(testEquals());
   }
 
   public static Point createPoint() {
@@ -81,6 +82,29 @@ public class PointTester {
       );
 
       if (newOne.distanceTo(newTwo) != result) return false;
+    }
+
+    return true;
+  }
+
+  public static boolean testEquals() {
+    Point one = new Point(0, 0);
+    Point two = new Point(99, 0);
+    Point three = new Point(0, -25);
+    Point four = new Point(-10, 7);
+    Point five = one;
+    Point six = new Point(0, 0);
+
+    Point[] points = new Point[] {
+      one, two, three, four, five, six
+    };
+
+    boolean[] expected = new boolean[] {
+      true, false, false, false, true, true
+    };
+
+    for (int i = 0; i < 6; i++) {
+      if (one.equals(points[i]) != expected[i]) return false;
     }
 
     return true;
